@@ -1,7 +1,14 @@
 class SessionsController < ApplicationController
 
     def login
-        byebug
+        # byebug
+        # user = User.find_by(params)
+        user = User.find_by(username: params['username'])
+        if (user && user.authenticate(params['password']))
+            render json: user
+        else
+            render json: {message: 'Invalid Username / Password'}
+        end
     end
 
     def test
